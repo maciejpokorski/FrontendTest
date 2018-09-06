@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "b4de4c2ad55a3a4bca32";
+/******/ 	var hotCurrentHash = "6e30f395bcafc23a16e3";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1091,14 +1091,63 @@ eval("var logLevel = \"info\";\n\nfunction dummy() {}\n\nfunction shouldLog(leve
 
 /***/ }),
 
+/***/ "./src/ApiRequester.js":
+/*!*****************************!*\
+  !*** ./src/ApiRequester.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (class {\n\n    constructor () {\n\n        this.method = \"GET\";\n\n    }\n\n    makeAPIcall (requestURL) {\n\n        const xhr = new XMLHttpRequest();\n\n        return new Promise((resolve, reject) => {\n\n            xhr.open(this.method, requestURL);\n            xhr.onload = () => resolve(xhr.responseText);\n            xhr.onerror = () => reject(xhr.statusText);\n            xhr.send();\n\n        });\n\n    }\n\n});\n\n\n//# sourceURL=webpack:///./src/ApiRequester.js?");
+
+/***/ }),
+
+/***/ "./src/DOMmanipulator.js":
+/*!*******************************!*\
+  !*** ./src/DOMmanipulator.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (class {\n\n    constructor () {\n\n        this.correctResult = document.getElementById(\"correct-result\");\n        this.emptyResult = document.getElementById(\"empty-result\");\n        this.searchResult = document.getElementById(\"search-result\");\n\n        if (this.correctResult === null || this.emptyResult === null || this.searchResult === null) {\n\n            throw Error(\"Application error\");\n\n        }\n\n    }\n\n    showLoading () {\n\n        this.emptyResult.style.display = \"none\";\n        this.correctResult.style.display = \"none\";\n        document.getElementById(\"username-input\").value = \"\";\n        document.getElementById(\"submit\").disabled = true;\n        this.searchResult.insertAdjacentHTML(\n            \"afterbegin\",\n            \"<div class='search-result'>\" +\n                \"<div class='lds-dual-ring' id='loading-spinner'></div>\" +\n            \"</div>\"\n        );\n\n    }\n\n    hideLoading () {\n\n        const loadingSpinner = document.getElementById(\"loading-spinner\");\n\n        if (loadingSpinner) {\n\n            this.searchResult.style.display = \"block\";\n            loadingSpinner.parentNode.remove();\n            loadingSpinner.remove();\n            document.getElementById(\"submit\").disabled = false;\n\n        }\n\n    }\n\n    showError (text = \"Does not exist\") {\n\n        this.correctResult.style.display = \"none\";\n        this.emptyResult.style.display = \"block\";\n\n        this.emptyResult.\n            firstElementChild.innerHTML = text;\n\n    }\n\n    showUserInfo (data) {\n\n        if (!data.name) {\n\n            data.name = data.login;\n\n        }\n\n        if (!data.bio) {\n\n            data.bio = \"Empty bio\";\n\n        }\n\n        this.emptyResult.style.display = \"none\";\n        this.correctResult.style.display = \"block\";\n        this.correctResult.\n            innerHTML = `<div class=\"user-info\">\n                            <div class=\"user-info__avatar user-info__item\">\n                                <img src=\"${data.avatar_url}\" alt=\"   \">\n                            </div>\n                            <div class=\"user-info__details user-info__item\">\n                                <h5>@${data.login}</h5>\n                                <h2>${data.name}</h2>\n                                <p>${data.bio}</p>\n                            </div>\n                        </div>`;\n\n    }\n\n    showUserRepos (data) {\n        \n        let reposHTML = data.map((repo) => {\n\n            return `<li class=\"user-repositories-list__item\">\n                        <h4 class=\"user-repositories-list__title\">${repo.name}</h4>\n                        <span class=\"repository-info\">\n                            <svg class=\"octicon octicon-star v-align-text-bottom\" viewBox=\"0 0 14 16\" version=\"1.1\" width=\"14\" height=\"16\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" d=\"M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z\"></path></svg>\n                            <span class=\"repository-info__item\" id=\"stars\">${repo.stargazers_count}</span>\n                            <svg class=\"octicon octicon-repo-forked v-align-text-bottom\" viewBox=\"0 0 10 16\" version=\"1.1\" width=\"10\" height=\"16\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" d=\"M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z\"></path></svg>\n                            <span class=\"repository-info__item\" id=\"forks\">${repo.forks_count}</span>\n                        </span>\n                    </li>`;\n\n        }).\n            join(\"\");\n\n        if (!reposHTML) {\n\n            reposHTML = \"<li>No repositories</li>\";\n\n        }\n\n        this.correctResult.innerHTML +=\n            `<div class=\"user-repositories\">\n                <h3 class=\"user-repositories__title\">Repositories</h3>\n                <hr class=\"user-repositories__divider\">\n                <ul class=\"user-repositories-list\">\n                    ${reposHTML}\n                </ul>\n            </div>`;\n\n    }\n\n\n});\n\n\n//# sourceURL=webpack:///./src/DOMmanipulator.js?");
+
+/***/ }),
+
+/***/ "./src/FormController.js":
+/*!*******************************!*\
+  !*** ./src/FormController.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _DOMmanipulator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DOMmanipulator */ \"./src/DOMmanipulator.js\");\n/* harmony import */ var _GithubUserApi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GithubUserApi */ \"./src/GithubUserApi.js\");\n\n\n\nconst userSearch = document.getElementById(\"search-form\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (class {\n\n    constructor () {\n\n        if (userSearch === null) {\n\n            throw Error(\"Application error\");\n\n        }\n\n        userSearch.addEventListener(\"submit\", (event) => {\n\n            event.preventDefault();\n            this.username = document.getElementById(\"username-input\");\n            const usernameValue = this.username.value;\n\n            try {\n\n                this.domManipulator = new _DOMmanipulator__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n                this.githubApi = new _GithubUserApi__WEBPACK_IMPORTED_MODULE_1__[\"default\"](usernameValue);\n                this.getUserDataAndRepo();\n\n            } catch (err) {\n\n                this.domManipulator.showError(err.message);\n\n            }\n\n        });\n\n    }\n\n    getUserDataAndRepo () {\n\n        this.domManipulator.showLoading();\n        this.getUserInfo();\n        this.getUserRepos();\n\n    }\n\n    getUserInfo () {\n\n        this.githubApi.getUserData().then((response) => {\n\n            if (response.message === \"Not Found\") {\n\n                this.domManipulator.showError();\n\n            } else {\n\n                this.domManipulator.showUserInfo(response);\n\n            }\n            this.domManipulator.hideLoading();\n\n        });\n\n    }\n\n    getUserRepos () {\n\n        return this.githubApi.getUserRepos().then((response) => {\n\n            if (response.message === \"Not Found\") {\n\n                this.domManipulator.showError();\n\n            } else {\n\n                this.domManipulator.showUserRepos(response);\n\n            }\n            this.domManipulator.hideLoading();\n\n        });\n\n    }\n\n});\n\n\n//# sourceURL=webpack:///./src/FormController.js?");
+
+/***/ }),
+
+/***/ "./src/GithubUserApi.js":
+/*!******************************!*\
+  !*** ./src/GithubUserApi.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ApiRequester_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ApiRequester.js */ \"./src/ApiRequester.js\");\n\n\nconst api = new _ApiRequester_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"](),\n    baseApiUrl = \"https://api.github.com/users\";\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (class {\n\n    constructor (username) {\n\n        if (!username.trim().length) {\n\n            throw Error(\"Username cannot be empty\");\n\n        }\n\n        this.url = `${baseApiUrl}/${username}`;\n\n    }\n\n    getUserData () {\n\n        return api.makeAPIcall(this.url).then((result) => JSON.parse(result)).\n            catch((error) => {\n\n                throw error;\n\n            });\n\n    }\n\n    getUserRepos () {\n\n        const reposUrl = `${this.url}/repos`;\n\n        return api.makeAPIcall(reposUrl).then((result) => JSON.parse(result)).\n            catch((error) => {\n\n                throw error;\n\n            });\n\n    }\n\n});\n\n\n//# sourceURL=webpack:///./src/GithubUserApi.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("console.log(\"hello world\");\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _FormController__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormController */ \"./src/FormController.js\");\n\r\n\r\nnew _FormController__WEBPACK_IMPORTED_MODULE_0__[\"default\"](); // eslint-disable-line no-new\r\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
