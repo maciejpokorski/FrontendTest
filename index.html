@@ -8,52 +8,24 @@
     <script async src="dist/bundle.js"></script>
 </head>
 <body>
-
     <div class="app">
         <div class="search-wrapper">
             <div class="search-wrapper__inner">
                 <form action="search" id="search-form" class="search-form">
-                    <input class="search-form__item" size="40" type="text" placeholder="Serach username...">
-                    <button class="search-form__item" type="submit">Search</button>
+                    <input class="search-form__item" id="username-input" name="username" size="40" type="text" placeholder="Serach username...">
+                    <button class="search-form__item" id="submit" type="submit">Search</button>
                 </form>
-                
-                <div class="search-result">
-                    <div class="search-result__empty">
+                <div class="search-result" id="search-result">
+                    <div class="search-result__empty" id="empty-result">
                         <div class="message message--error">
                             Does not exist
                         </div>
                     </div>
-                    <div class="search-result__data">
-                        <div class="user-info">
-                            <div class="user-info__avatar user-info__item">
-                                <img src="https://avatars3.githubusercontent.com/u/47313?v=4" alt="">
-                            </div>
-                            <div class="user-info__details user-info__item">
-                                <h5>@username</h5>
-                                <h2>Full name</h2>
-                                <p>Bio</p>
-                            </div>
-                        </div>
-                        <div class="user-repositories">
-                                <h3 class="user-repositories__title">Repositories</h3>
-                                <hr class="user-repositories__divider">
-                                <ul class="user-repositories-list">
-                                    <li class="user-repositories-list__item">
-                                        <h4 class="user-repositories-list__title">aa</h4>
-                                        <span class="repository-info">
-                                            <svg class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
-                                            <span class="repository-info__item" id="stars">50</span>
-                                            <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
-                                            <span class="repository-info__item" id="forks">30</span>
-                                        </span>
-                                    </li>
-                                </ul>
-                        </div>
+                    <div class="search-result__data" id="correct-result">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>
