@@ -20,6 +20,7 @@ input
     font-family:Arial;
     padding: 10px;
     border-radius: 4px;
+    max-width: 70vw;
 }
 
 h1,h3,h4,h5,p{
@@ -61,7 +62,6 @@ ul.user-repositories-list{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin: auto;
 }
 
 .message{
@@ -90,6 +90,8 @@ ul.user-repositories-list{
     box-shadow: 5px 6px 20px 0px #00000052;
     border-radius: 7px;
     padding: 15px 0;
+    max-height: 80vh;
+    overflow: auto;
 }
 
 .search-result__data{
@@ -169,6 +171,16 @@ ul.user-repositories-list{
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-device-width : 1024px) {
+    .search-form{
+        flex-direction: column;
+    }
+
+    .search-form__item{
+        margin: 10px;
     }
 }
   
